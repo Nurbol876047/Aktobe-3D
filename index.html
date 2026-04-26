@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="kk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aktobe Animated Cards</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="indicator" aria-hidden="true"></div>
+
+    <header class="brand" aria-label="Aktobe Routes">
+      <span>Aktobe</span>
+      <strong>Routes</strong>
+    </header>
+
+    <div class="quick-actions" aria-label="Жылдам өту">
+      <a class="tour-link" href="./tours.html" aria-label="3D турға өту">3D</a>
+      <a class="next-page-link" href="./nature.html">Следующая страница</a>
+    </div>
+
+    <main id="demo"></main>
+
+    <section class="details" id="details-even" aria-live="polite">
+      <div class="place-box">
+        <div class="text"></div>
+      </div>
+      <div class="title-box-1"><div class="title-1"></div></div>
+      <div class="title-box-2"><div class="title-2"></div></div>
+      <div class="desc"></div>
+      <div class="cta">
+        <button class="bookmark" type="button" aria-label="Сақтау">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              fill-rule="evenodd"
+              d="M6.32 2.577a49.255 49.255 0 0111.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 01-1.085.67L12 18.089l-7.165 3.583A.75.75 0 013.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </button>
+        <button class="discover" type="button">Орынды көру</button>
+      </div>
+    </section>
+
+    <section class="details" id="details-odd" aria-live="polite">
+      <div class="place-box">
+        <div class="text"></div>
+      </div>
+      <div class="title-box-1"><div class="title-1"></div></div>
+      <div class="title-box-2"><div class="title-2"></div></div>
+      <div class="desc"></div>
+      <div class="cta">
+        <button class="bookmark" type="button" aria-label="Сақтау">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              fill-rule="evenodd"
+              d="M6.32 2.577a49.255 49.255 0 0111.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 01-1.085.67L12 18.089l-7.165 3.583A.75.75 0 013.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </button>
+        <button class="discover" type="button">Орынды көру</button>
+      </div>
+    </section>
+
+    <nav class="pagination" id="pagination" aria-label="Слайдтар">
+      <button class="arrow arrow-left" type="button" aria-label="Алдыңғы слайд">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+        </svg>
+      </button>
+      <button class="arrow arrow-right" type="button" aria-label="Келесі слайд">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+        </svg>
+      </button>
+      <div class="progress-sub-container">
+        <div class="progress-sub-background">
+          <div class="progress-sub-foreground"></div>
+        </div>
+      </div>
+      <div class="slide-numbers">
+        <div class="item" id="slide-current">01</div>
+        <div class="item" id="slide-next">02</div>
+      </div>
+    </nav>
+
+    <div class="cover" aria-hidden="true"></div>
+
+    <script src="./vendor/gsap.min.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>

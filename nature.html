@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Природа Актобе</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./nature.css" />
+  </head>
+  <body>
+    <header class="nature-topbar">
+      <a class="album-link" href="./index.html">Альбом</a>
+      <a class="nature-3d-link" href="./tours.html">3D</a>
+    </header>
+
+    <main class="nature-page">
+      <section class="nature-intro">
+        <p class="nature-kicker">Природа Актобе</p>
+        <h1>О Актобе</h1>
+        <p>
+          Актобе соединяет городские огни, широкую степь, каньоны и зелёные речные долины. Эта подборка показывает разные стороны региона: от ночного города до тихих природных ландшафтов.
+        </p>
+      </section>
+
+      <section class="gesture-gallery" aria-label="Галерея природы Актобе">
+        <div class="camera-panel" aria-live="polite">
+          <video id="gesture-video" autoplay muted playsinline></video>
+          <span id="gesture-status">Камера</span>
+        </div>
+
+        <div class="gesture-cursor" aria-hidden="true"></div>
+
+        <div class="nature-stage" data-gallery>
+          <div class="nature-track">
+            <article class="nature-card">
+              <img src="./assets/nature-01.jpeg" alt="Ночной вид города Актобе с высоты" />
+              <div class="nature-copy">
+                <span>01</span>
+                <h2>Ночной Актобе</h2>
+                <p>
+                  Город раскрывается через сеть огней, дорог и кварталов. С высоты хорошо видно, как современная застройка постепенно переходит в открытое степное пространство.
+                </p>
+              </div>
+            </article>
+
+            <article class="nature-card">
+              <img src="./assets/nature-02.jpeg" alt="Каньон с красными скалами" />
+              <div class="nature-copy">
+                <span>02</span>
+                <h2>Скалистый каньон</h2>
+                <p>
+                  Сухие породы и резкие тени создают выразительный рельеф. Такие места показывают древний характер земли и силу природной эрозии.
+                </p>
+              </div>
+            </article>
+
+            <article class="nature-card">
+              <img src="./assets/nature-03.jpeg" alt="Зелёные холмы и пастбища" />
+              <div class="nature-copy">
+                <span>03</span>
+                <h2>Зелёные холмы</h2>
+                <p>
+                  Мягкие линии холмов, пастбища и прохладный воздух создают спокойный образ степной природы. Здесь особенно заметна открытость пространства.
+                </p>
+              </div>
+            </article>
+
+            <article class="nature-card">
+              <img src="./assets/nature-04.jpeg" alt="Река и зелёный лес сверху" />
+              <div class="nature-copy">
+                <span>04</span>
+                <h2>Речная долина</h2>
+                <p>
+                  Сверху река выглядит как живая линия среди густой зелени. Вода формирует островки, изгибы и влажные участки, где природа становится особенно насыщенной.
+                </p>
+              </div>
+            </article>
+
+            <article class="nature-card">
+              <img src="./assets/nature-05.jpeg" alt="Горная река между скалами" />
+              <div class="nature-copy">
+                <span>05</span>
+                <h2>Река среди скал</h2>
+                <p>
+                  Быстрая вода проходит между каменными склонами и зелёными берегами. Контраст сухих гор и яркой растительности делает вид очень живым.
+                </p>
+              </div>
+            </article>
+
+            <article class="nature-card">
+              <img src="./assets/nature-06.jpeg" alt="Панорама Актобе вечером" />
+              <div class="nature-copy">
+                <span>06</span>
+                <h2>Вечерняя панорама</h2>
+                <p>
+                  Закатный свет, городские магистрали и широкое небо показывают Актобе как город на границе степи и современной городской среды.
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="nature-progress" aria-hidden="true">
+          <span id="nature-current">01</span>
+          <div class="nature-progress-line">
+            <i id="nature-progress-fill"></i>
+          </div>
+          <span>06</span>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+    <script src="./nature.js"></script>
+  </body>
+</html>
