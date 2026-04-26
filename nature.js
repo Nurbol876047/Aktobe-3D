@@ -9,6 +9,7 @@ const cards = Array.from(document.querySelectorAll(".nature-card"));
 let targetScroll = 0;
 let lastHandX = null;
 let currentIndex = 0;
+let isProgrammaticScroll = false;
 
 function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
@@ -33,7 +34,11 @@ function updateProgress() {
 
 function animateGallery() {
   targetScroll = clamp(targetScroll, 0, maxScroll());
+  isProgrammaticScroll = true;
   stage.scrollLeft += (targetScroll - stage.scrollLeft) * 0.16;
+  requestAnimationFrame(() => {
+    isProgrammaticScroll = false;
+  });
   updateProgress();
   requestAnimationFrame(animateGallery);
 }
@@ -119,5 +124,34 @@ window.addEventListener("resize", () => {
   updateProgress();
 });
 
+stage.addEventListener(
+  "scroll",
+  () => {
+    if (isProgrammaticScroll) return;
+
+    targetScroll = stage.scrollLeft;
+    updateProgress();
+  },
+  { passive: true }
+);
+
+stage.addEventListener(
+  "wheel",
+  (event) => {
+    const delta = Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY;
+
+    if (!delta) return;
+
+    targetScroll += delta;
+    event.preventDefault();
+  },
+  { passive: false }
+);
+
 animateGallery();
-startGestureCamera();
+
+if (window.matchMedia("(min-width: 861px)").matches) {
+  startGestureCamera();
+} else {
+  statusText.textContent = "Свайп";
+}

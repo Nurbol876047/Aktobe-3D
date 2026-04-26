@@ -142,6 +142,7 @@ button {
   top: 0;
   z-index: 40;
   width: 200px;
+  overflow: hidden;
   color: #fffffff2;
   padding-left: 16px;
   padding-right: 12px;
@@ -222,7 +223,7 @@ button {
 
 .details > .desc {
   margin-top: clamp(14px, 1.3vw, 24px);
-  width: min(760px, 100%);
+  width: min(680px, 42vw);
   font-size: clamp(14px, 1.2vw, 22px);
   line-height: 1.45;
   font-weight: 600;
@@ -365,33 +366,41 @@ button {
 }
 
 @media (max-width: 860px) {
+  html,
+  body,
+  #demo {
+    min-height: 100svh;
+  }
+
   .brand {
-    top: 22px;
+    top: 18px;
+    left: 18px;
   }
 
   .quick-actions {
-    top: 16px;
-    right: 18px;
+    top: 14px;
+    right: 14px;
     gap: 8px;
   }
 
   .tour-link {
-    min-width: 98px;
-    height: 54px;
-    padding: 0 26px;
-    font-size: 22px;
+    min-width: 86px;
+    height: 48px;
+    padding: 0 22px;
+    font-size: 20px;
   }
 
   .next-page-link {
-    min-width: 198px;
-    height: 48px;
-    padding: 0 22px;
-    font-size: 16px;
+    min-width: 168px;
+    height: 42px;
+    padding: 0 18px;
+    font-size: 14px;
   }
 
   .details {
-    top: 74px;
-    width: calc(100vw - 48px);
+    top: 128px;
+    left: 18px;
+    width: calc(100vw - 36px);
   }
 
   .details .place-box {
@@ -420,6 +429,7 @@ button {
   }
 
   .details > .desc {
+    width: min(100%, 92vw);
     max-width: 92vw;
     font-size: clamp(13px, 2.4vw, 16px);
     line-height: 1.45;
@@ -434,13 +444,71 @@ button {
   }
 
   .card-content {
-    display: none;
+    display: block;
+    padding-left: 10px;
+    padding-right: 8px;
+  }
+
+  .content-place {
+    margin-top: 6px;
+    font-size: 10px;
+    line-height: 1.16;
+  }
+
+  .content-title-1,
+  .content-title-2 {
+    font-size: 15px;
+    line-height: 1.04;
+  }
+
+  .content-start {
+    width: 24px;
+    height: 4px;
   }
 }
 
 @media (max-width: 560px) {
+  .brand {
+    top: 16px;
+    left: 16px;
+    gap: 6px;
+  }
+
+  .brand span {
+    font-size: 12px;
+  }
+
+  .brand strong {
+    font-size: 15px;
+  }
+
+  .quick-actions {
+    top: 12px;
+    right: 12px;
+    gap: 6px;
+  }
+
+  .tour-link {
+    min-width: 68px;
+    height: 40px;
+    padding: 0 18px;
+    font-size: 18px;
+    box-shadow:
+      0 14px 32px rgba(0, 0, 0, 0.32),
+      0 0 0 5px rgba(241, 182, 58, 0.16);
+  }
+
+  .next-page-link {
+    min-width: 132px;
+    height: 36px;
+    padding: 0 14px;
+    font-size: 12px;
+  }
+
   .details {
-    top: 82px;
+    top: 118px;
+    left: 16px;
+    width: calc(100vw - 32px);
   }
 
   .details .place-box {
@@ -454,7 +522,8 @@ button {
 
   .details .title-1,
   .details .title-2 {
-    font-size: clamp(30px, 10vw, 42px);
+    font-size: clamp(32px, 11vw, 44px);
+    line-height: 0.98;
   }
 
   .details .title-box-1,
@@ -466,14 +535,35 @@ button {
     margin-top: 14px;
     font-size: clamp(12px, 3vw, 14px);
     line-height: 1.5;
+    max-width: min(330px, 100%);
   }
 
   .pagination > .arrow {
-    width: 44px;
-    height: 44px;
+    width: 42px;
+    height: 42px;
   }
 
   .pagination > .arrow:nth-child(2) {
     margin-left: 12px;
+  }
+
+  .pagination .slide-numbers {
+    width: 48px;
+    height: 42px;
+  }
+
+  .pagination .slide-numbers .item {
+    width: 48px;
+    height: 42px;
+    font-size: 24px;
+  }
+
+  .content-place {
+    font-size: 9px;
+  }
+
+  .content-title-1,
+  .content-title-2 {
+    font-size: 13px;
   }
 }

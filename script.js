@@ -65,6 +65,8 @@ let order = data.map((_, index) => index);
 let detailsEven = true;
 let isStepping = false;
 let autoTimer;
+let touchStartX = null;
+let touchStartY = null;
 
 let offsetTop = 200;
 let offsetLeft = 700;
@@ -95,12 +97,17 @@ function calculateLayout() {
   const width = window.innerWidth;
   const height = window.innerHeight;
   const narrow = width < 860;
+  const compact = width < 560;
 
-  cardWidth = narrow ? Math.min(160, Math.max(118, width * 0.32)) : Math.min(220, Math.max(180, width * 0.14));
-  cardHeight = cardWidth * 1.45;
-  gap = narrow ? 14 : 34;
-  offsetTop = narrow ? height - cardHeight - 92 : height - cardHeight - 112;
-  offsetLeft = narrow ? 24 : Math.max(width - cardWidth * 3 - gap * 2 - 70, width * 0.46);
+  cardWidth = narrow
+    ? compact
+      ? Math.min(132, Math.max(108, width * 0.34))
+      : Math.min(170, Math.max(128, width * 0.3))
+    : Math.min(220, Math.max(180, width * 0.14));
+  cardHeight = cardWidth * (narrow ? 1.32 : 1.45);
+  gap = compact ? 12 : narrow ? 18 : 34;
+  offsetTop = narrow ? height - cardHeight - (compact ? 96 : 104) : height - cardHeight - 112;
+  offsetLeft = compact ? 16 : narrow ? 24 : Math.max(width - cardWidth * 3 - gap * 2 - 70, width * 0.52);
 }
 
 function thumbnailX(index) {
@@ -108,7 +115,50 @@ function thumbnailX(index) {
 }
 
 function thumbnailContentY() {
-  return offsetTop + cardHeight - 78;
+  return offsetTop + cardHeight - (window.innerWidth < 860 ? 66 : 78);
+}
+
+function visibleThumbnailCount() {
+  if (window.innerWidth < 560) return 2;
+  if (window.innerWidth < 860) return 3;
+  return 4;
+}
+
+function positionCards() {
+  const [active, ...rest] = order;
+  const visibleCount = visibleThumbnailCount();
+
+  gsap.set(getCard(active), {
+    x: 0,
+    y: 0,
+    width: window.innerWidth,
+    height: window.innerHeight,
+    borderRadius: 0,
+    zIndex: 20,
+    scale: 1,
+    filter: "brightness(1)",
+  });
+  gsap.set(getCardContent(active), { x: 0, y: 0, width: cardWidth, opacity: 0 });
+
+  rest.forEach((cardIndex, index) => {
+    gsap.set(getCard(cardIndex), {
+      x: thumbnailX(index),
+      y: offsetTop,
+      width: cardWidth,
+      height: cardHeight,
+      zIndex: 30,
+      borderRadius: 12,
+      scale: 1,
+      filter: "brightness(1)",
+    });
+    gsap.set(getCardContent(cardIndex), {
+      x: thumbnailX(index),
+      y: thumbnailContentY(),
+      width: cardWidth,
+      opacity: index < visibleCount ? 1 : 0,
+      zIndex: 40,
+    });
+  });
 }
 
 function renderCards() {
@@ -144,33 +194,45 @@ function setPaginationPosition() {
   const height = window.innerHeight;
 
   gsap.set("#pagination", {
-    top: width < 860 ? height - 66 : offsetTop + cardHeight + 30,
-    left: width < 860 ? 24 : offsetLeft,
+    top: width < 860 ? height - (width < 560 ? 62 : 66) : offsetTop + cardHeight + 30,
+    left: width < 560 ? 16 : width < 860 ? 24 : offsetLeft,
   });
+}
+
+function handleTouchStart(event) {
+  if (event.target.closest("a, button")) return;
+
+  const touch = event.changedTouches[0];
+  touchStartX = touch.clientX;
+  touchStartY = touch.clientY;
+}
+
+function handleTouchEnd(event) {
+  if (touchStartX === null || touchStartY === null || event.target.closest("a, button")) return;
+
+  const touch = event.changedTouches[0];
+  const deltaX = touch.clientX - touchStartX;
+  const deltaY = touch.clientY - touchStartY;
+  touchStartX = null;
+  touchStartY = null;
+
+  if (Math.abs(deltaX) < 46 || Math.abs(deltaX) < Math.abs(deltaY) * 1.15) return;
+
+  queueStep(deltaX < 0 ? "next" : "prev");
 }
 
 function init() {
   calculateLayout();
   renderCards();
 
-  const [active, ...rest] = order;
+  const [active] = order;
   const detailsActive = detailsEven ? "#details-even" : "#details-odd";
   const detailsInactive = detailsEven ? "#details-odd" : "#details-even";
 
   fillDetails(detailsActive, data[active]);
   fillDetails(detailsInactive, data[active]);
 
-  gsap.set(getCard(active), {
-    x: 0,
-    y: 0,
-    width: window.innerWidth,
-    height: window.innerHeight,
-    borderRadius: 0,
-    zIndex: 20,
-    scale: 1,
-    filter: "brightness(1)",
-  });
-  gsap.set(getCardContent(active), { x: 0, y: 0, opacity: 0 });
+  positionCards();
   gsap.set(detailsActive, { opacity: 0, zIndex: 55, x: -130 });
   gsap.set(`${detailsActive} .text`, { y: 0 });
   gsap.set(`${detailsActive} .title-1`, { y: 0 });
@@ -178,25 +240,6 @@ function init() {
   gsap.set(`${detailsActive} .desc`, { y: 0, opacity: 1 });
   gsap.set(`${detailsActive} .cta`, { y: 0, opacity: 1 });
   resetInactiveDetails(detailsInactive);
-
-  rest.forEach((cardIndex, index) => {
-    gsap.set(getCard(cardIndex), {
-      x: thumbnailX(index),
-      y: offsetTop,
-      width: cardWidth,
-      height: cardHeight,
-      zIndex: 30,
-      borderRadius: 12,
-      scale: 1,
-      filter: "brightness(1)",
-    });
-    gsap.set(getCardContent(cardIndex), {
-      x: thumbnailX(index),
-      y: thumbnailContentY(),
-      opacity: index < 4 ? 1 : 0,
-      zIndex: 40,
-    });
-  });
 
   setPaginationPosition();
   gsap.set(".progress-sub-foreground", {
@@ -220,6 +263,8 @@ function init() {
 
   document.querySelector(".arrow-left").addEventListener("click", () => queueStep("prev"));
   document.querySelector(".arrow-right").addEventListener("click", () => queueStep("next"));
+  document.addEventListener("touchstart", handleTouchStart, { passive: true });
+  document.addEventListener("touchend", handleTouchEnd, { passive: true });
   scheduleAuto();
 }
 
@@ -335,7 +380,8 @@ function step(direction = "next") {
       tl.to(getCardContent(cardIndex), {
         x: xNew,
         y: thumbnailContentY(),
-        opacity: index < 4 ? 1 : 0,
+        width: cardWidth,
+        opacity: index < visibleThumbnailCount() ? 1 : 0,
         zIndex: 40,
         duration: 0.55,
         delay: 0.04 * index,
@@ -390,6 +436,7 @@ async function start() {
 
 window.addEventListener("resize", () => {
   calculateLayout();
+  positionCards();
   setPaginationPosition();
 });
 
