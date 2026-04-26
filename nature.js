@@ -79,7 +79,7 @@ function onHandsResults(results) {
 
 async function startGestureCamera() {
   if (!window.Hands || !window.Camera) {
-    statusText.textContent = "MediaPipe недоступен";
+    statusText.textContent = "MediaPipe қолжетімсіз";
     return;
   }
 
@@ -110,7 +110,7 @@ async function startGestureCamera() {
     statusText.textContent = "MediaPipe";
   } catch (error) {
     console.error("Camera start failed", error);
-    statusText.textContent = "Камера недоступна";
+    statusText.textContent = "Камера қолжетімсіз";
   }
 }
 
