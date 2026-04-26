@@ -29,7 +29,7 @@ const data = [
     title2: "ТАУЛАРЫ",
     description:
       "Табиғи сұлулығымен танымал аймақ. Жасыл төбелер мен тыныш табиғат ерекше әсер береді.",
-    image: "./assets/mugalzhar-mountains.jpg",
+    image: "./assets/aktobe-steppe.jpg",
   },
   {
     place: "Табиғи шатқал",
